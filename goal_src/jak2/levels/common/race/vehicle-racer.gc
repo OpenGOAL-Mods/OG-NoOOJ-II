@@ -436,7 +436,7 @@
      )
     (('race-pass)
      (if (logtest? (-> this flags) (rigid-body-object-flag player-driving))
-         (speech-control-method-12 *speech-control* this (if (= *current-mission* class-2)
+         (speech-control-method-12 *speech-control* this (if (game-task-node stadium-race-class2-race)
                                                              (speech-type speech-type-45)
                                                              (speech-type speech-type-36)
                                                              )
