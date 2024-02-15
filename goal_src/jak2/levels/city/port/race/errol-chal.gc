@@ -1383,7 +1383,7 @@
           )
         )
       )
-    (race-start (-> self info index) self #f) ;; OG:Jetboard No OoJ changed to #t 
+    (race-start (-> self info index) self #f)
     (set! (-> self begin-pos quad)
           (-> (new 'static 'vector :x 2519040.0 :y 40960.0 :z 6545408.0 :w 184320.0) quad) ;; OG:Jetboard coordinates in meters x: 615 y:10 z:1598 w:45
           )
