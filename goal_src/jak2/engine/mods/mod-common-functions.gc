@@ -117,11 +117,6 @@ if the result of rand-vu-int-range is 1, then DANCE! if it is not 1, then Don't 
 (defmacro current-cutscene ()
   `(-> *art-control* active-stream)
   )
-  (defun test-boop()
-  (when *debug-segment*
-  (play-sound-file "SND/Boop.mp3" 100)
-  )
-  )
 
 (defun test-boop ()
 (when *debug-segment*
