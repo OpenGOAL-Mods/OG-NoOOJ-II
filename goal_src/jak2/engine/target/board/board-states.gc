@@ -121,6 +121,7 @@
   )
 
 (define-extern *target-board-hold-tricks* int)
+(define-extern *hover-grab-limit* int)
 
 ;; WARN: Return type mismatch object vs none.
 (defbehavior target-board-spin-check target ()
@@ -248,6 +249,9 @@
                    )
           (set! (-> self board unknown-float01) f28-1)
           (+! *target-board-hold-tricks* 1)
+          (when (and (> *hover-grab-limit* 0) (> *target-board-hold-tricks* *hover-grab-limit*))  ;; og:jetboard cancel hover if limit is reached
+            (go target-board-falling)
+            )
           (go
             target-board-hold
             (-> *TARGET_BOARD-bank* tricky-jump-height-min)
@@ -2359,19 +2363,16 @@
       (go target-board-stance)
       )
     )
-  :code (behavior ((arg0 handle))
+:code (behavior ((arg0 handle))
     (ja-channel-push! 1 (seconds 0.05))
     (ja-no-eval :group! jakb-board-grenade-ja :num! (seek! (ja-aframe 19.0 0)) :frame-num 0.0)
     (until (ja-done? 0)
         (suspend)
         (ja :num! (seek! (ja-aframe 19.0 0)))
-              )
-      
-      
+      )
         (let ((a1-5 (joint-node jakb-lod0-jg extra))
               (s5-2 (new 'stack-no-clear 'projectile-init-by-other-params))
               )
-         
           (let ((a0-7 (handle->process arg0)))
             (set! (-> s5-2 ent) (if a0-7
                                     (-> a0-7 entity)
@@ -2393,14 +2394,14 @@
           (vector<-cspace! (-> s5-2 pos) a1-5)
           (set! (-> s5-2 vel quad) (-> *zero-vector* quad))
           (spawn-projectile grenade s5-2 self *default-dead-pool*)
-            )
+        )
     (ja-no-eval :num! (seek!))
     (while (not (ja-done? 0))
       (suspend)
       (ja-eval)
-      )
-    (sleep-code)
     )
+    (sleep-code)
+  )
   :post target-board-post
   )
 
@@ -2964,7 +2965,7 @@
           (set! (-> v1-6 invinc-time) (the-as time-frame (-> *TARGET-bank* hit-invulnerable-timeout)))
           (set! (-> v1-6 speed) 1.0)
           (set! (-> v1-6 damage) (-> *FACT-bank* health-default-inc))
-          (set! (-> v1-6 knock) (the-as uint 0))
+          (set! (-> v1-6 knock) (knocked-type knocked-type-0))
           )
         (case arg0
           (('shove)
@@ -3048,7 +3049,7 @@
             )
           )
         (when (not (and (= (-> self game mode) 'play) (>= 0.0 (-> (the-as fact-info-target (-> self fact)) health))))
-          (when (= (-> gp-0 knock) 8)
+          (when (= (-> gp-0 knock) (knocked-type knocked-type-8))
             (set-quaternion! (-> self control) (-> self control dir-targ))
             (set-forward-vel (* -3.0 (-> gp-0 shove-back)))
             (when (demo?)
