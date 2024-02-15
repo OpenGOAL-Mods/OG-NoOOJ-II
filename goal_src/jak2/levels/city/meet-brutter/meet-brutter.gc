@@ -855,18 +855,18 @@
         (vector-normalize! s5-2 1.0)
         (quaternion-from-two-vectors! gp-1 s5-2 *up-vector*)
         (quaternion*! (-> self root quat) gp-1 (-> self root quat))
-        (let* ((self-position (-> self root trans))
-            (target-position (-> *target* root trans))
-            (dist-diff (vector-vector-distance self-position target-position)))
-      (when (>= dist-diff 0.0) 
-        (vector-copy! (-> self root trans) (-> *target* root trans))
+        (let* ((self-position (-> self root trans)) ;; OG:Jetboard Sets the Lurker's position as self-position
+            (target-position (-> *target* root trans)) ;; OG:Jetboard Sets Jak's or *target*'s position as target-position
+            (dist-diff (vector-vector-distance self-position target-position))) ;; OG:Jetboard tests for the distance betwee Jak and the Lurker and sets it as dist-diff
+      (when (>= dist-diff 0.0) ;; OG:Jetboard tests if dist-diff is greater than or equal to 0.0 (4096.0 = 1 meter)
+        (vector-copy! (-> self root trans) (-> *target* root trans)) ;; OG:Jetboard Copies the position of the Lurker to the Position of Jak when diff-dist is greater than or equal to 0.0
         )
       )
-    (quaternion-copy! (-> self root quat) (-> (the board (ppointer->process (-> *target* board board))) root quat))
-    (when (< (vector-vector-xz-distance (-> self root trans) (-> self end-pos)) 163840.0)
+    (quaternion-copy! (-> self root quat) (-> (the board (ppointer->process (-> *target* board board))) root quat)) ;; OG:Jetboard sets the rotation of the Lurker to the rotation of the Jetboard so it rotates with it
+    (when (< (vector-vector-xz-distance (-> self root trans) (-> self end-pos)) 163840.0) ;; OG:Jetboard tests if the xz distance between the Lurker and it's end position is less than ~40 meters
       
-          (go-virtual go-at-pipe)
-          (go-virtual go-at-end)
+          (go-virtual go-at-pipe) ;; OG:Jetboard if the above is true, tells the Lurker to go towards the pipe
+          (go-virtual go-at-end);; OG:Jetboard if the above is true, tells the Lurker to go towards Brutter's shop 
           
       )
         )
