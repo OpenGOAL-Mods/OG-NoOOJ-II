@@ -802,7 +802,7 @@
   (set! (-> self control reaction) target-collision-reaction)
   (set! (-> self control pat-ignore-mask) (new 'static 'pat-surface :noentity #x1 :noboard #x1 :probe #x1))
   (logior! (-> self focus-status) (focus-status board))
-  ;(logclear! (-> self control root-prim prim-core action) (collide-action can-ride))
+  ;(logclear! (-> self control root-prim prim-core action) (collide-action can-ride)) ;; OG:Jetboard Added so board can ride elevators
   (set! (-> self control bend-target) 1.0)
   (let ((v1-82 (-> self node-list data)))
     (set! (-> v1-82 0 param0) (the-as (function cspace transformq none) cspace<-transformq+world-trans!))
@@ -874,7 +874,7 @@
       )
     (logclear! (-> self focus-status) (focus-status board))
     (logclear! (-> self control root-prim prim-core action) (collide-action stuck-wall-escape no-normal-reset))
-    ;(logior! (-> self control root-prim prim-core action) (collide-action can-ride))
+    ;(logior! (-> self control root-prim prim-core action) (collide-action can-ride)) ;; OG:Jetboard Added so board can ride elevators
     (set! (-> self control mod-surface) *walk-mods*)
     (logclear! (-> self state-flags) (state-flags sf6))
     (remove-setting! 'string-spline-max-move)
