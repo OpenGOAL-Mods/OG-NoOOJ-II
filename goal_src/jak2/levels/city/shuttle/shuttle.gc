@@ -104,7 +104,7 @@
     :bullseye-joint 4
     :notice-distance (meters 10)
     :notice-distance-delta (meters 0.1)
-    :default-hit-points 10000
+    :default-hit-points 1
     :gnd-collide-with (collide-spec backgnd)
     :overlaps-others-collide-with-filter (collide-spec jak bot player-list)
     :penetrate-knocked (penetrate
