@@ -357,7 +357,7 @@
   (case arg2
     (('test-ready)
      (or (and (-> this next-state) (= (-> this next-state name) 'waiting-for-start)) ;; OG:Jetboard
-          (logtest? (-> *target* focus-status) (focus-status board)) ;; OG:Jetboard
+          (focus-test? *target* board) ;; OG:Jetboard
           )
      )
     (('begin-race)
