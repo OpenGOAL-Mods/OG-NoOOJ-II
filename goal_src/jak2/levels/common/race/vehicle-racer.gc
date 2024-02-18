@@ -357,7 +357,7 @@
   (case arg2
     (('test-ready)
      (or (and (-> this next-state) (= (-> this next-state name) 'waiting-for-start)) ;; OG:Jetboard
-          (logtest? (-> *target* focus-status) (focus-status board)) ;; OG:Jetboard
+          (focus-test? *target* board) ;; OG:Jetboard 
           )
      )
     (('begin-race)
@@ -436,7 +436,7 @@
      )
     (('race-pass)
      (if (logtest? (-> this flags) (rigid-body-object-flag player-driving))
-         (speech-control-method-12 *speech-control* this (if  *target*
+         (speech-control-method-12 *speech-control* this (if  (game-task-node stadium-race-class2-race)
                                                              (speech-type speech-type-45)
                                                              (speech-type speech-type-36)
                                                              )
@@ -903,10 +903,10 @@
           (* 5.0 409600.0)
           )
         )
-      (else
-        ;; turbo over
-        (set-target-board-mods-speed 204800.0 409600.0)
-        )
+      ;; (else
+      ;;   ;; turbo over
+      ;;   (set-target-board-mods-speed 204800.0 409600.0)
+      ;;   )
       )
     )
   

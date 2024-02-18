@@ -1118,7 +1118,7 @@
     (set! (-> self sub-state) (the-as uint 0))
     (set! (-> self count) 0)
     (set! (-> self max-count) -1)
-    (race-start (-> self info index) self #f) ;; OG:Jetboard No OoJ Changed to true
+    (race-start (-> self info index) self #f) 
     (set-setting! 'gun #f 0.0 0)
     (set! (-> self begin-pos quad)
           (-> (new 'static 'vector :x -326041.6 :y 36454.4 :z 5391565.0 :w 266240.0) quad) ;; OG:Jetboard coordinates in meters x:-79.6 y:8.9 z:1316.3 w:65
@@ -1177,6 +1177,7 @@
   TASK_MANAGER_UPDATE_HOOK
   (lambda :behavior task-manager
     ()
+    (set-target-board-mods-speed 204800.0 409600.0)
     (let ((gp-0 (new 'stack-no-clear 'inline-array 'vector 1))
           (s5-0 *city-errol-challenge-rings*)
           )
@@ -1446,9 +1447,9 @@
   (lambda :behavior task-manager
     ()
     (when (zero? (-> self sub-state))
-      (let ((v1-2 (-> *target* board))) ;; OG:Jetboard Changed pilot to board
+      (let ((v1-2 (-> *target* pilot))) ;; OG:Jetboard Changed pilot to board
         (when (nonzero? v1-2)
-          (let ((v1-4 (handle->process (-> v1-2 board)))) ;; OG:Jetboard Replaced vehicle 
+          (let ((v1-4 (handle->process (-> v1-2 vehicle)))) ;; OG:Jetboard Replaced vehicle 
             (when v1-4
               (if (< (-> (the-as process-drawable v1-4) root trans y) 16384.0)
                   (go-virtual fail)

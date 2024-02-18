@@ -601,72 +601,72 @@
     :default-hit-points 1
     :gnd-collide-with (collide-spec backgnd)
     :overlaps-others-collide-with-filter (collide-spec jak bot player-list)
-    ;; :penetrate-knocked (penetrate
-    ;;   touch
-    ;;   generic-attack
-    ;;   lunge
-    ;;   flop
-    ;;   punch
-    ;;   spin
-    ;;   roll
-    ;;   uppercut
-    ;;   bonk
-    ;;   tube
-    ;;   vehicle
-    ;;   flut-attack
-    ;;   board
-    ;;   mech
-    ;;   mech-punch
-    ;;   mech-bonk
-    ;;   dark-skin
-    ;;   dark-punch
-    ;;   dark-bomb
-    ;;   dark-giant
-    ;;   shield
-    ;;   explode
-    ;;   jak-yellow-shot
-    ;;   jak-red-shot
-    ;;   jak-blue-shot
-    ;;   jak-dark-shot
-    ;;   enemy-yellow-shot
-    ;;   enemy-dark-shot
-    ;;   eco-yellow
-    ;;   eco-red
-    ;;   eco-blue
-    ;;   eco-green
-    ;;   knocked
-    ;;   penetrate-33
-    ;;   penetrate-34
-    ;;   penetrate-35
-    ;;   penetrate-36
-    ;;   penetrate-37
-    ;;   penetrate-38
-    ;;   penetrate-39
-    ;;   penetrate-40
-    ;;   penetrate-41
-    ;;   penetrate-42
-    ;;   penetrate-43
-    ;;   penetrate-44
-    ;;   penetrate-45
-    ;;   penetrate-46
-    ;;   penetrate-47
-    ;;   penetrate-48
-    ;;   penetrate-49
-    ;;   penetrate-50
-    ;;   penetrate-51
-    ;;   penetrate-52
-    ;;   penetrate-53
-    ;;   penetrate-54
-    ;;   penetrate-55
-    ;;   penetrate-56
-    ;;   penetrate-57
-    ;;   penetrate-58
-    ;;   penetrate-59
-    ;;   penetrate-60
-    ;;   penetrate-61
-    ;;   penetrate-62
-    ;;   penetrate-63
-    ;;   )
+    :penetrate-knocked (penetrate ;; OG:Jetboard 
+      touch
+      generic-attack
+      lunge
+      flop
+      punch
+      spin
+      roll
+      uppercut
+      bonk
+      tube
+      vehicle
+      flut-attack
+      board
+      mech
+      mech-punch
+      mech-bonk
+      dark-skin
+      dark-punch
+      dark-bomb
+      dark-giant
+      shield
+      explode
+      jak-yellow-shot
+      jak-red-shot
+      jak-blue-shot
+      jak-dark-shot
+      enemy-yellow-shot
+      enemy-dark-shot
+      eco-yellow
+      eco-red
+      eco-blue
+      eco-green
+      knocked
+      penetrate-33
+      penetrate-34
+      penetrate-35
+      penetrate-36
+      penetrate-37
+      penetrate-38
+      penetrate-39
+      penetrate-40
+      penetrate-41
+      penetrate-42
+      penetrate-43
+      penetrate-44
+      penetrate-45
+      penetrate-46
+      penetrate-47
+      penetrate-48
+      penetrate-49
+      penetrate-50
+      penetrate-51
+      penetrate-52
+      penetrate-53
+      penetrate-54
+      penetrate-55
+      penetrate-56
+      penetrate-57
+      penetrate-58
+      penetrate-59
+      penetrate-60
+      penetrate-61
+      penetrate-62
+      penetrate-63
+      )
     :movement-gravity (meters -100)
     :friction 0.8
     :attack-shove-back (meters 3)
@@ -867,6 +867,7 @@
       
           (go-virtual go-at-pipe)
           (go-virtual go-at-end)
+          (go-virtual wait-at-end)
           
       )
         )
@@ -1302,7 +1303,7 @@
       
           (go-virtual go-at-pipe)
           (go-virtual go-at-end)
-          
+          (go-virtual wait-at-end)
       )
     (logior! (-> self flags) (citizen-flag persistent))
     (set-time! (-> self state-time))
@@ -1329,14 +1330,14 @@
     (logclear! (-> self flags) (citizen-flag persistent))
     )
   :trans (behavior ()
-  (let* ((self-position (-> self root trans))
+  (let* ((self-position (-> self root trans)) ;; OG:Jetboard 
             (target-position (-> *target* root trans))
             (dist-diff (vector-vector-distance self-position target-position)))
       (when (>= dist-diff 0.0) 
         (vector-copy! (-> self root trans) (-> *target* root trans))
         )
       )
-    (quaternion-copy! (-> self root quat) (-> (the board (ppointer->process (-> *target* board board))) root quat))
+    (quaternion-copy! (-> self root quat) (-> (the board (ppointer->process (-> *target* board board))) root quat)) ;; OG:Jetboard 
     (let ((t9-0 (-> (method-of-type civilian wait-for-ride) trans)))
       (if t9-0
           (t9-0)
@@ -1346,7 +1347,7 @@
       
           (go-virtual go-at-pipe)
           (go-virtual go-at-end)
-          
+          (go-virtual wait-at-end)
       )
     )
   :code (behavior ()
@@ -1940,7 +1941,7 @@
   (none)
   )
 
-(defmethod init-enemy-collision! ((this city-lurker))
+(defmethod init-enemy-collision! ((this city-lurker)) ;; OG:Jetboard changed collision 
   "Initializes the [[collide-shape-moving]] and any ancillary tasks to make the enemy collide properly"
   (let ((s5-0 (new 'process 'collide-shape-moving this (collide-list-enum usually-hit-by-player))))
     (set! (-> s5-0 dynam) (copy *standard-dynamics* 'process))
@@ -2086,7 +2087,7 @@
      #f
      )
     ;; (('hit 'hit-flinch 'hit-knocked)
-    ;;  ((method-of-type citizen general-event-handler) this arg0 arg1 arg2 arg3)
+    ;;  ((method-of-type citizen general-event-handler) this arg0 arg1 arg2 arg3) ;; OG:Jetboard 
     ;;  )
     (else
       ((method-of-type civilian general-event-handler) this arg0 arg1 arg2 arg3)
