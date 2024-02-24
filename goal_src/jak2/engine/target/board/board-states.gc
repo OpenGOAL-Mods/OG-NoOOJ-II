@@ -1502,7 +1502,7 @@
   :code (behavior ((arg0 vector) (arg1 float))
     (ja-no-eval :group! jakb-board-jump-kickoff-ja :num! (seek!) :frame-num 0.0)
     (until (ja-done? 0)
-      (if (and (jump-hit-ground-stuck?) (> 31.0 (ja-aframe-num 0))) ;; OG:Jetboard changed < to >
+      (if (and (jump-hit-ground-stuck?) (< 31.0 (ja-aframe-num 0)))
           (go target-board-hit-ground)
           )
       (let ((v1-21 (-> self control unknown-vector38)))
