@@ -18906,6 +18906,7 @@
     (target-board-start object)
     (target-board-trickx float float symbol)
     (target-board-turn-to vector time-frame)
+    target-board-turn-around ;; OG:Jetboard/No OoJ Jetboard 180 
     (target-board-wall-kick vector float)
     target-carry-drop
     target-carry-falling

@@ -858,6 +858,7 @@
                         (= v1-3 'target-board-pegasus)
                         (= v1-3 'target-board-grab)
                         (= v1-3 'target-board-clone-anim)
+                        (= v1-3 'target-board-turn-around) ;; OG:Jetboard/No OoJ Jak 3 Backported 180 Turn
                         )
                     )
                   )
