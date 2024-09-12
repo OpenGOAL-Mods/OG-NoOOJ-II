@@ -2118,7 +2118,7 @@
       (compute-alignment! (-> self align))
       (until (ja-done? 0)
         (suspend)
-        (ja :num! (seek! max 1.25))
+        (ja :num! (seek! max 2.00))
         (compute-alignment! (-> self align))
         (align! (-> self align) (align-opts adjust-quat) 1.0 1.0 1.0)
         (set! (-> self control ctrl-xz-vel)
