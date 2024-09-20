@@ -1382,9 +1382,9 @@
   :enter (behavior ()
   ;; og:jetboard Spawn Rings code Begins
 (process-spawn race-ring (new 'static 'vector :x 862330.88 :y -294666.24 :z 5873090.56 :w 10478.551))
-(process-spawn race-ring (new 'static 'vector :x 988938.24 :y -294666.24 :z 6018252.8 :w 9000.0))
+(process-spawn race-ring (new 'static 'vector :x 988938.24 :y -294666.24 :z 6018252.8 :w 2048.0))
 (process-spawn race-ring (new 'static 'vector :x 702013.44 :y -294666.24 :z 5876817.92 :w -10478.551))
-(process-spawn race-ring (new 'static 'vector :x 584581.12 :y -294666.24 :z 6020505.6 :w -9000.0))
+(process-spawn race-ring (new 'static 'vector :x 584581.12 :y -294666.24 :z 6020505.6 :w -2048.0))
 ;; og:jetboard Spawn Rings code ends
     (widow-launch-bombs-talker)
     (set! (-> self osc target x) 135168.0)
@@ -1826,9 +1826,9 @@
   :enter (behavior ()
     ;; og:jetboard Spawn Rings code Begins
 (process-spawn race-ring (new 'static 'vector :x 862330.88 :y -294666.24 :z 5873090.56 :w 10478.551))
-(process-spawn race-ring (new 'static 'vector :x 988938.24 :y -294666.24 :z 6018252.8 :w 9000.0))
+(process-spawn race-ring (new 'static 'vector :x 988938.24 :y -294666.24 :z 6018252.8 :w 2048.0))
 (process-spawn race-ring (new 'static 'vector :x 702013.44 :y -294666.24 :z 5876817.92 :w -10478.551))
-(process-spawn race-ring (new 'static 'vector :x 584581.12 :y -294666.24 :z 6020505.6 :w -9000.0))
+(process-spawn race-ring (new 'static 'vector :x 584581.12 :y -294666.24 :z 6020505.6 :w -2048.0))
 ;; og:jetboard Spawn Rings code ends
     (set! (-> self flying) #f)
     (none)
