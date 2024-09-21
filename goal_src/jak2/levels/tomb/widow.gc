@@ -213,9 +213,7 @@
 (defstate die (race-ring)
   :virtual #t
   :code (behavior ()
-  (print "die state start")
   (send-event (process-by-ename "widow-3") 'bomb-hit (target-pos 0) 1)
-    ;;(set! (-> (the-as widow (entity-by-name "widow-3")) bomb-hits) (+ (-> (the-as widow (entity-by-name "widow-3")) bomb-hits) 1))    
     (while (-> self child)
       (suspend)
       )
