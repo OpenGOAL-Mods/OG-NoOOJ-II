@@ -7,6 +7,265 @@
 
 ;; DECOMP BEGINS
 
+;; og:jetboard Ring Code Begins
+(declare-type city-race-ring-info structure) 
+(deftype bb-ring-info (structure)
+  ((time       time-frame)
+   (start-pos  vector  :inline)
+   (rotation   float)
+   (rings      (array city-race-ring-info))
+   )
+  )
+
+(deftype race-ring (process-drawable)
+  ((last-target-pos        vector         :inline)
+   (keep-part-track-alive  symbol)
+   (part-track             handle)
+   (rot-y                  float)
+   (cyl                    cylinder-flat  :inline)
+   )
+  (:state-methods
+    idle
+    die
+    )
+  (:methods
+    (race-ring-method-22 (_type_) none)
+    (race-ring-method-23 (_type_) none)
+    )
+  )
+
+
+(defun race-ring-set-particle-rotation-callback ((arg0 part-tracker))
+  (let ((f0-0 (-> (the-as (pointer race-ring) (-> arg0 userdata)) 0 rot-y)))
+    (set! (-> *part-id-table* 4578 init-specs 14 initial-valuef) f0-0)
+    (set! (-> *part-id-table* 4579 init-specs 14 initial-valuef) f0-0)
+    (set! (-> *part-id-table* 4580 init-specs 4 initial-valuef) (+ -182.04445 f0-0))
+    (set! (-> *part-id-table* 4581 init-specs 4 initial-valuef) f0-0)
+    (set! (-> *part-id-table* 4582 init-specs 16 initial-valuef) f0-0)
+    (set! (-> *part-id-table* 4583 init-specs 4 initial-valuef) f0-0)
+    (set! (-> *part-id-table* 4584 init-specs 4 initial-valuef) f0-0)
+    (set! (-> *part-id-table* 4588 init-specs 16 initial-valuef) f0-0)
+    (set! (-> *part-id-table* 4589 init-specs 4 initial-valuef) f0-0)
+    )
+  0
+  (none)
+  )
+
+  (defstate idle (race-ring)
+  :virtual #t
+  :enter (behavior ()
+    (let ((gp-0 (get-process *default-dead-pool* part-tracker #x4000)))
+      (set! (-> self part-track)
+            (ppointer->handle
+              (when gp-0
+                (let ((t9-1 (method-of-type part-tracker activate)))
+                  (t9-1 (the-as part-tracker gp-0) self (symbol->string (-> part-tracker symbol)) (the-as pointer #x70004000))
+                  )
+                (let ((t9-2 run-function-in-process)
+                      (a0-2 gp-0)
+                      (a1-2 part-tracker-init)
+                      (a2-4 (-> *part-group-id-table* 1054))
+                      (a3-1 0)
+                      (t0-0 race-ring-set-particle-rotation-callback)
+                      (t1-0 (-> self ppointer))
+                      (t2-0 #f)
+                      (t3-0 *launch-matrix*)
+                      )
+                  (set! (-> t3-0 trans quad) (-> self root trans quad))
+                  ((the-as (function object object object object object object object object none) t9-2)
+                   a0-2
+                   a1-2
+                   a2-4
+                   a3-1
+                   t0-0
+                   t1-0
+                   t2-0
+                   t3-0
+                   )
+                  )
+                (-> gp-0 ppointer)
+                )
+              )
+            )
+      )
+    )
+  :exit (behavior ()
+    (let ((a0-1 (handle->process (-> self part-track))))
+      (if a0-1
+          (deactivate a0-1)
+          )
+      )
+    (let ((gp-0 (get-process *default-dead-pool* part-tracker #x4000)))
+      (set! (-> self part-track)
+            (ppointer->handle
+              (when gp-0
+                (let ((t9-2 (method-of-type part-tracker activate)))
+                  (t9-2 (the-as part-tracker gp-0) self (symbol->string (-> part-tracker symbol)) (the-as pointer #x70004000))
+                  )
+                (let ((t9-3 run-function-in-process)
+                      (a0-6 gp-0)
+                      (a1-3 part-tracker-init)
+                      (a2-4 (-> *part-group-id-table* 1055))
+                      (a3-1 0)
+                      (t0-0 race-ring-set-particle-rotation-callback)
+                      (t1-0 (-> self ppointer))
+                      (t2-0 #f)
+                      (t3-0 *launch-matrix*)
+                      )
+                  (set! (-> t3-0 trans quad) (-> self root trans quad))
+                  ((the-as (function object object object object object object object object none) t9-3)
+                   a0-6
+                   a1-3
+                   a2-4
+                   a3-1
+                   t0-0
+                   t1-0
+                   t2-0
+                   t3-0
+                   )
+                  )
+                (-> gp-0 ppointer)
+                )
+              )
+            )
+      )
+    )
+  :trans (behavior ()
+    (cond
+      ((handle->process (-> self part-track))
+       (if (-> self keep-part-track-alive)
+           (set-time! (-> (the-as part-tracker (-> self part-track process 0)) start-time))
+           )
+       )
+      (else
+        (let ((gp-0 (get-process *default-dead-pool* part-tracker #x4000)))
+          (set! (-> self part-track)
+                (ppointer->handle
+                  (when gp-0
+                    (let ((t9-1 (method-of-type part-tracker activate)))
+                      (t9-1 (the-as part-tracker gp-0) self (symbol->string (-> part-tracker symbol)) (the-as pointer #x70004000))
+                      )
+                    (let ((t9-2 run-function-in-process)
+                          (a0-9 gp-0)
+                          (a1-3 part-tracker-init)
+                          (a2-4 (-> *part-group-id-table* 1053))
+                          (a3-1 0)
+                          (t0-0 race-ring-set-particle-rotation-callback)
+                          (t1-0 (-> self ppointer))
+                          (t2-0 #f)
+                          (t3-0 *launch-matrix*)
+                          )
+                      (set! (-> t3-0 trans quad) (-> self root trans quad))
+                      ((the-as (function object object object object object object object object none) t9-2)
+                       a0-9
+                       a1-3
+                       a2-4
+                       a3-1
+                       t0-0
+                       t1-0
+                       t2-0
+                       t3-0
+                       )
+                      )
+                    (-> gp-0 ppointer)
+                    )
+                  )
+                )
+          )
+        (set! (-> self keep-part-track-alive) #t)
+        )
+      )
+    (let ((v1-17 *target*)
+          (gp-1 (new 'stack-no-clear 'vector))
+          )
+      (when v1-17
+        (set! (-> gp-1 quad) (-> v1-17 control trans quad))
+        (set! (-> gp-1 w) 4096.0)
+        (when (focus-test? v1-17 pilot)
+          (let ((a1-8 (handle->process (-> v1-17 pilot vehicle))))
+            (set! (-> gp-1 quad) (-> (the-as process-focusable a1-8) root root-prim prim-core world-sphere quad))
+            )
+          )
+        (when (>= (ray-flat-cyl-intersect
+                    (-> self cyl)
+                    (-> self last-target-pos)
+                    (vector-! (new 'stack-no-clear 'vector) gp-1 (-> self last-target-pos))
+                    )
+                  0.0
+                  )
+          (+! (-> *game-info* counter) -1.0)
+          (sound-play "ring-pickup")
+          (go-virtual die)
+          )
+        (set! (-> self last-target-pos quad) (-> gp-1 quad))
+        )
+      )
+    )
+  :code (behavior ()
+    (until #f
+      (suspend)
+      )
+    #f
+    )
+  :post ja-post
+  )
+
+(defstate die (race-ring)
+  :virtual #t
+  :code (behavior ()
+  (send-event (process-by-ename "widow-3") 'bomb-hit (target-pos 0) 1)
+    (while (-> self child)
+      (suspend)
+      )
+    (cleanup-for-death self)
+    )
+  )
+
+(defmethod race-ring-method-22 ((this race-ring))
+  (set! (-> this root) (new 'process 'trsqv))
+  0
+  (none)
+  )
+
+(defmethod race-ring-method-23 ((this race-ring))
+  (add-icon! *minimap* this (the-as uint 15) (the-as int #f) (the-as vector #t) 0)
+  (set! (-> this keep-part-track-alive) #f)
+  (set! (-> this part-track) (the-as handle #f))
+  (set! (-> this rot-y) (+ 16384.0 (quaternion-y-angle (-> this root quat))))
+  (set! (-> this last-target-pos quad) (-> (target-pos 0) quad))
+  (set-vector! (-> this cyl axis) (cos (-> this rot-y)) 0.0 (- (sin (-> this rot-y))) 1.0)
+  (vector+float*! (the-as vector (-> this cyl)) (-> this root trans) (-> this cyl axis) -2048.0)
+  (set! (-> this cyl radius) 24576.0)
+  (set! (-> this cyl length) 4096.0)
+  0
+  (none)
+  )
+
+;; WARN: Return type mismatch object vs none.
+(defbehavior race-ring-init-by-other race-ring ((arg0 city-race-ring-info))
+  (race-ring-method-22 self)
+  (set! (-> self root trans quad) (-> arg0 pos quad))
+  (+! (-> self root trans y) 10240.0)
+  (quaternion-axis-angle! (-> self root quat) 0.0 1.0 0.0 (-> arg0 pos w))
+  (set-vector! (-> self root scale) 3.0 3.0 3.0 1.0)
+  (race-ring-method-23 self)
+  (go-virtual idle)
+  (none)
+  )
+
+(defun race-ring-spawn ((arg0 task-manager) (arg1 city-race-ring-info))
+  (let ((gp-0 (the-as process #f)))
+    (let ((v1-1 (process-spawn race-ring arg1 :to arg0)))
+      (if v1-1
+          (set! gp-0 (-> v1-1 0))
+          )
+      )
+    gp-0
+    )
+  )
+
+  ;; og:jetboard Ring Code Ends
+  
 ;; WARN: Return type mismatch joint-control-channel vs none.
 (defbehavior widow-common widow ()
   (update! (-> self theta) 0.0)
@@ -912,6 +1171,7 @@
 (defstate beaten (widow)
   :virtual #t
   :enter (behavior ()
+  (kill-by-name "race-ring" *default-pool*) ;; og:jetboard despawns rings after boss fight
     (ja-channel-set! 0)
     (ja-post)
     (when (-> self hover-sound-playing)
@@ -1118,6 +1378,12 @@
   :virtual #t
   :event widow-handler
   :enter (behavior ()
+  ;; og:jetboard Spawn Rings code Begins
+(process-spawn race-ring (new 'static 'vector :x 862330.88 :y -294666.24 :z 5873090.56 :w 10478.551))
+(process-spawn race-ring (new 'static 'vector :x 988938.24 :y -294666.24 :z 6018252.8 :w 2048.0))
+(process-spawn race-ring (new 'static 'vector :x 702013.44 :y -294666.24 :z 5876817.92 :w -10478.551))
+(process-spawn race-ring (new 'static 'vector :x 584581.12 :y -294666.24 :z 6020505.6 :w -2048.0))
+;; og:jetboard Spawn Rings code ends
     (widow-launch-bombs-talker)
     (set! (-> self osc target x) 135168.0)
     (set! (-> self flying) #t)
@@ -1503,6 +1769,7 @@
   :virtual #t
   :event widow-handler
   :enter (behavior ()
+  (kill-by-name "race-ring" *default-pool*) ;; og:jetboard despawns rings
     (talker-spawn-func (-> *talker-speech* 302) *entity-pool* (target-pos 0) (the-as region #f))
     (dotimes (gp-1 8)
       (let ((a0-3 (handle->process (-> self bomb gp-1))))
@@ -1555,6 +1822,12 @@
   :virtual #t
   :event widow-handler
   :enter (behavior ()
+    ;; og:jetboard Spawn Rings code Begins
+(process-spawn race-ring (new 'static 'vector :x 862330.88 :y -294666.24 :z 5873090.56 :w 10478.551))
+(process-spawn race-ring (new 'static 'vector :x 988938.24 :y -294666.24 :z 6018252.8 :w 2048.0))
+(process-spawn race-ring (new 'static 'vector :x 702013.44 :y -294666.24 :z 5876817.92 :w -10478.551))
+(process-spawn race-ring (new 'static 'vector :x 584581.12 :y -294666.24 :z 6020505.6 :w -2048.0))
+;; og:jetboard Spawn Rings code ends
     (set! (-> self flying) #f)
     (none)
     )
@@ -1967,6 +2240,7 @@
   :enter (behavior ()
     (widow-launch-droids-talker)
     (spydroid-setup)
+    (kill-by-name "race-ring" *default-pool*) ;; og:jetboard despawns rings
     (set! (-> self flying) #f)
     (none)
     )
@@ -1995,6 +2269,7 @@
   :virtual #t
   :event widow-handler
   :enter (behavior ()
+  (kill-by-name "race-ring" *default-pool*) ;; og:jetboard despawns rings
     (dotimes (gp-0 8)
       (let ((a0-1 (handle->process (-> self bomb gp-0))))
         (if a0-1
@@ -2041,7 +2316,12 @@
   :virtual #t
   :event widow-handler
   :enter (behavior ()
-    (set! (-> self flying) #f)
+    ;; og:jetboard Spawn Rings code Begins
+(process-spawn race-ring (new 'static 'vector :x 862330.88 :y -294666.24 :z 5873090.56 :w 10478.551))
+(process-spawn race-ring (new 'static 'vector :x 988938.24 :y -294666.24 :z 6018252.8 :w 2048.0))
+(process-spawn race-ring (new 'static 'vector :x 702013.44 :y -294666.24 :z 5876817.92 :w -10478.551))
+(process-spawn race-ring (new 'static 'vector :x 584581.12 :y -294666.24 :z 6020505.6 :w -2048.0))
+;; og:jetboard Spawn Rings code ends
     (none)
     )
   :trans (behavior ()
@@ -2135,6 +2415,7 @@
   :event widow-handler
   :enter (behavior ()
     (widow-launch-droids-talker)
+    (kill-by-name "race-ring" *default-pool*) ;; og:jetboard despawns rings
     (let ((gp-0 (new 'stack-no-clear 'event-message-block)))
       (set! (-> gp-0 from) (process->ppointer self))
       (set! (-> gp-0 num-params) 0)

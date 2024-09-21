@@ -793,7 +793,7 @@
        (let ((v1-30 (the-as object (-> arg3 param 1))))
          (if (or (!= arg0 *target*) (and (= arg2 'attack)
                                          (logtest? (attack-mask penetrate-using) (-> (the-as attack-info v1-30) mask))
-                                         (logtest? (penetrate dark-bomb) (-> (the-as attack-info v1-30) penetrate-using))
+                                         ;;(logtest? (penetrate dark-bomb) (-> (the-as attack-info v1-30) penetrate-using)) ;; OG:Jetboard/No OoJ commented out to allow board attack to hit spydroids
                                          )
                  )
              ((method-of-type nav-enemy general-event-handler) this arg0 arg1 arg2 arg3)
@@ -1276,7 +1276,7 @@
     (let ((v1-7 (new 'process 'collide-shape-prim-sphere s5-0 (the-as uint 0))))
       (set! (-> v1-7 prim-core collide-as) (collide-spec enemy))
       (set! (-> v1-7 prim-core collide-with) (collide-spec jak bot player-list))
-      (set! (-> v1-7 prim-core action) (collide-action deadly))
+      (set! (-> v1-7 prim-core action) (collide-action solid)) ;; og:jetboard removed deadly and added solid to make hitting them with the jetboard better
       (set! (-> v1-7 transform-index) 3)
       (set-vector! (-> v1-7 local-sphere) 0.0 0.0 0.0 4096.0)
       (set! (-> s5-0 total-prims) (the-as uint 1))
